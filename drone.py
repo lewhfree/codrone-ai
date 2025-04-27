@@ -33,7 +33,7 @@ def requestAPI(prompt:str) -> str:
         split = text.splitlines()
         djson = [json.loads(line) for line in split]
         for obj in djson:
-            text += djson["response"]
+            text += obj["response"]
         print("executing:")
         print(text)
         return text
