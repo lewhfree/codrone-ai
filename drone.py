@@ -31,10 +31,9 @@ def requestAPI(prompt:str) -> str:
     if response.status_code == 200:
         text = response.text
         split = text.splitlines()
-        json = [json.loads(line) for line in split]
-        
-        for line in json:
-            text = line["response"]
+        djson = [json.loads(line) for line in split]
+        text = djson["response"]
+        print("executing:")
         print(text)
         return text
     else:
