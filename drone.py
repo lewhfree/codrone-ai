@@ -12,6 +12,7 @@ from codrone_edu.drone import Drone, pair, close, takeoff, land, emergency_stop,
 # This is so that the llm is limited to thesecouple functions so it doesn't overthink coding. you can let it have full access by changing the list to * and telling the llm all the funcs
 
 import requests
+import json
 
 API_URL = "http://localhost:11434/api/generate"
 
