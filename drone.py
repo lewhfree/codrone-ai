@@ -8,7 +8,7 @@
 ### the optimal use for this would be run your laptop at the school on a phone hotspot. It would be either accessing your computer (tailscale, port forwarding) or the openai api
 ### The usb dongle for the drone would be in your laptop.
 
-from codrone_edu.drone import pair, close, takeoff, land, emergency_stop, hover, avoid_wall, keep_distance, move_forward, move_backward, move_left, move_right, move_distance, turn_degree, turn_left, turn_right    # *
+from codrone_edu.drone import Drone, pair, close, takeoff, land, emergency_stop, hover, avoid_wall, keep_distance, move_forward, move_backward, move_left, move_right, move_distance, turn_degree, turn_left, turn_right    # *
 # This is so that the llm is limited to thesecouple functions so it doesn't overthink coding. you can let it have full access by changing the list to * and telling the llm all the funcs
 
 import requests
@@ -25,7 +25,7 @@ def requestAPI(prompt:str) -> str:
         "prompt": prompt,
     }
     
-    response = requests.post(url, json=data)
+    response = requests.post(API_URL, json=data)
     
     if response.status_code == 200:
         text = response.text
@@ -58,7 +58,7 @@ def runCode(code:str) -> bool:
 def exiter(string:str):
     if string.lower().strip() == "exit":
         drone.emergency_stop()
-        print("Goodbye, ran " + str(each + 1) + " prompts.")
+        print("Goodbye")
         drone.close()
         exit()
 
