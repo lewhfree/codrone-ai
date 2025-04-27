@@ -32,6 +32,7 @@ def requestAPI(prompt:str) -> str:
         text = response.text
         split = text.splitlines()
         djson = [json.loads(line) for line in split]
+        text = ""
         for obj in djson:
             text += obj["response"]
         print("executing:")
@@ -39,6 +40,7 @@ def requestAPI(prompt:str) -> str:
         return text
     else:
         print("Error:", response.status_code)
+        return ""
     
 def validate(code:str) -> bool:
     try:
@@ -68,21 +70,22 @@ def exiter(string:str):
         exit()
 
 command = ""
-while True:
-    # If you want to tell the llm the last command failed. The problem is that it might try to say sorry or fix the old code. You would have to discourage that in the system prompt.
-    if command == "ERROR":
-        command = input("What should it do? Type exit to exit")
-        exiter(command)
-        #command += "FYI, the last command broke, keep that in mind, dont fix it, but don't repeat the problem"
-    else:
-        command = input("What should it do? Type exit to exit")
-        exiter(command)
+try:
+    while True:
+        # If you want to tell the llm the last command failed. The problem is that it might try to say sorry or fix the old code. You would have to discourage that in the system prompt.
+        if command == "ERROR":
+            command = input("What should it do? Type exit to exit")
+            exiter(command)
+            #command += "FYI, the last command broke, keep that in mind, dont fix it, but don't repeat the problem"
+        else:
+            command = input("What should it do? Type exit to exit")
+            exiter(command)
     
-    AI = requestAPI(command)
+        AI = requestAPI(command)
     
-    worked = runCode(AI)
+        worked = runCode(AI)
     
-    if not worked:
-        command = "ERROR"
-    
-drone.close()
+        if not worked:
+            command = "ERROR"
+finally:
+    drone.close()
