@@ -5,9 +5,6 @@
 ### To save you the trouble of running ollama, just use the openai API, itll probably cost less than a dollar for this use case.
 ### FYI, the llm can pass in mulpile successive commands using ; or \n as a seperator.
 
-### the optimal use for this would be run your laptop at the school on a phone hotspot. It would be either accessing your computer (tailscale, port forwarding) or the openai api
-### The usb dongle for the drone would be in your laptop.
-
 from codrone_edu.drone import Drone, pair, close, takeoff, land, emergency_stop, hover, avoid_wall, keep_distance, move_forward, move_backward, move_left, move_right, move_distance, turn_degree, turn_left, turn_right    # *
 # This is so that the llm is limited to thesecouple functions so it doesn't overthink coding. you can let it have full access by changing the list to * and telling the llm all the funcs
 
